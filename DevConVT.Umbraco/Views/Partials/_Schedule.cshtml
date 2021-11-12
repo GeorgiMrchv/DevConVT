@@ -1,0 +1,150 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+@{
+    string[] days = { "monday", "wednesday", "tuesday", "thursday", "friday" };
+    int i = 0;
+    string id = "";
+    string className = "";
+}
+
+
+<!-- Schedule Section Start -->
+<section id="schedule" class="schedule section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h2 class="section-title wow fadeInUp" data-wow-delay="0.2s">@Model.Value("heading")</h2>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s">@Model.Value("description")</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 mb-5 text-center">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    @foreach (var item in Model.Children)
+                    {
+                        id = days[i];
+                        if (days[i] == "monday")
+                        {
+                            className = "nav-link active";
+                        }
+                        else
+                        {
+                            className = "nav-link";
+                        }
+
+                        <li class="nav-item" id="@id">
+                            <a class="@className" id="@id" data-toggle="tab" href="@id" role="tab" aria-controls="@id" aria-expanded="true">
+                                <div class="item-text">
+                                    <h4>@item.Name</h4>
+                                </div>
+                            </a>
+                        </li>
+
+                        i++;
+                    }
+                    @{
+                        i = 0;
+                    }
+                </ul>
+            </div>
+
+
+
+            <div class="col-12">
+                <div class="schedule-area row wow fadeInDown" data-wow-delay="0.3s">
+                    <div class="schedule-tab-content col-12 clearfix">
+                        <div class="tab-content" id="myTabContent">
+
+                            @foreach (var item in Model.Children)
+                            {
+                                id = days[i];
+
+                                <div class="tab-pane fade show active" id="@id-tab" role="tabpanel" aria-labelledby="@id">
+
+                                    <div id="@id-accordion">    
+                                        @foreach (var currentItem in item.Children)
+                                        {
+                                            var getCurrentSpeaker = currentItem.Value<IPublishedContent>("speakersList"); 
+                                            var currentSpeakerImage = getCurrentSpeaker.Value<IPublishedContent>("image");
+
+                                            <div class="card">
+                                                <div id="@id-headingOne">
+                                                    <div class="schedule-slot-time">
+                                                        <span> @currentItem.Value("ScheduleDateRange")</span>
+                                                    </div>
+                                                    <div class="collapsed card-header" data-toggle="collapse" data-target="#@currentItem.Id" aria-expanded="false" aria-controls="@currentItem.Id">
+                                                        <div class="images-box">
+                                                            <img class="img-fluid" src="@currentSpeakerImage.Url()" alt="">
+                                                        </div>
+                                                        <h4> @getCurrentSpeaker.Value("title")</h4>
+                                                        <h5 class="name">@getCurrentSpeaker.Name</h5>
+                                                    </div>
+                                                </div>
+                                                <div id="@currentItem.Id" class="collapse" aria-labelledby="@id-headingOne" data-parent="#@id-accordion">
+                                                    <div class="card-body">
+                                                        <p>@getCurrentSpeaker.Value("description")</p>
+                                                        <div class="location">
+                                                            <span>Location:</span> @currentItem.Value("ScheduleLocation") 
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+
+                                </div>
+
+                                i++;
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<!-- Schedule Section End -->
+
+<script src="/assets/js/jquery-min.js"></script>
+<script>
+    $(document).ready(function () {
+        var daysTab = ["monday-tab", "tuesday-tab", "wednesday-tab", "thursday-tab", "friday-tab"];
+
+        for (var i = 0; i < daysTab.length; i++) {
+            if (daysTab[i] != "monday-tab") {
+                $("#" + daysTab[i]).hide();
+            }
+            else {
+                $("#" + daysTab[i]).show();
+            }
+        }
+
+    });
+
+    $("#myTab li").click(function (event) {
+        var target = $(this)[0].id;
+        var idTab = target + "-tab";
+        var daysTab = ["monday-tab", "tuesday-tab", "wednesday-tab", "thursday-tab", "friday-tab"];
+
+        for (var i = 0; i < daysTab.length; i++) {
+            if (daysTab[i] != idTab) {
+                $("#" + daysTab[i]).hide();
+            }
+            else {
+                $("#" + daysTab[i]).show();
+            }
+        }
+
+    });
+</script>
+

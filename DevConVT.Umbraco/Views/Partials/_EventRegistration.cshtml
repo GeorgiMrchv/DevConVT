@@ -1,0 +1,52 @@
+﻿@inherits UmbracoViewPage<DevConVT.Umbraco.ViewModels.EventRegistrationViewModel>
+
+<section id="event-registration" class="schedule section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h2 class="section-title wow fadeInUp" data-wow-delay="0.2s">Event registration</h2>
+                    <div class="wow fadeInDown" data-wow-delay="0.2s">
+                        <p>Currently registrated people:</p> <h3>@Model.Count</h3>
+                        <input class="btn btn-common" type="button" value="See Participants" onclick="location.href='@Url.Action("ExportExcell", "EventRegistration")'" />
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-md-12 col-xs-12">
+                        <div class="container-form wow fadeInLeft" data-wow-delay="0.2s">
+                            <div class="form-wrapper">
+                                @using (Html.BeginUmbracoForm("SubmitForm", "EventRegistration", FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-line">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", id = "name", placeholder = "Full Name", required = "required", data_error = "Please enter your name" })
+
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 form-line">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", id = "email", placeholder = "Email", required = "required", data_error = "Please enter your Email" })
+                                                @*@Html.ValidationMessageFor(m => m.EmailAddress)*@
+                                                @*Hint: To check about field-validation-error, which misses "display: none"*@
+                                                <div class="help-block with-errors"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 text-center">
+                                            <button class="btn btn-common">Register</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

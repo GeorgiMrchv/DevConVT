@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.54.0.2356" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevConVT.Umbraco\DevConVT.Umbraco.csproj" />
+  </ItemGroup>
+
+</Project>

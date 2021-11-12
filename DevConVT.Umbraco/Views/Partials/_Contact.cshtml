@@ -1,0 +1,65 @@
+﻿@inherits UmbracoViewPage<DevConVT.Umbraco.ViewModels.SendMailViewModel>
+
+<section id="contact-map" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h2 class="section-title wow fadeInUp" data-wow-delay="0.2s">Contact Us</h2>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s">
+                        Here you can ask us any questions
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-12 col-xs-12">
+                <div class="container-form wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="form-wrapper">
+                        @using (Html.BeginUmbracoForm("SubmitForm", "SendMail", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="row">
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                       
+                                        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", id = "name", placeholder = "Full Name", required = "required", data_error = "Please enter your name" })
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                       
+                                        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", id = "email", placeholder = "Email", required = "required", data_error = "Please enter your Email" })
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                      
+                                        @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", id = "msg_subject", placeholder = "Subject", required = "required", data_error = "Please enter your message subject" })
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                       
+                                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "4", id = "message", placeholder = "Message", required = "required", data_error = "Write your message" })
+                                    </div>
+                                    <div class="form-submit">
+                                        <button type="submit" class="btn btn-common" id="form-submit"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send Message</button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+</section>
+
+

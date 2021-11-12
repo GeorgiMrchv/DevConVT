@@ -1,0 +1,20 @@
+﻿{
+    propertyEditors: [
+        {
+            alias: "multipleDatePicker",
+            name: "Multiple Date Picker",
+            icon: "icon-calendar-alt",
+            editor: {
+                view: "~/App_Plugins/MultipleDatePicker8/editor.html",
+                valueType: "JSON"
+            }
+        }
+    ],
+    javascript: [
+		'~/App_Plugins/MultipleDatePicker8/js/multipleDatePicker.min.js',
+    '~/App_Plugins/MultipleDatePicker8/editor.controller.js'
+    ],
+	css : [
+		'~/App_Plugins/MultipleDatePicker8/css/multipleDatePicker.css'
+	]
+}

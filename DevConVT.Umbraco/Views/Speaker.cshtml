@@ -1,0 +1,39 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = "MasterDevConVT.cshtml";
+    var hostImage = Model.Value<IPublishedContent>("image");
+
+}
+
+<br />
+<br />
+<section id="team" class="section-padding text-center">
+    <div class="container">
+        <div class="row justify-content-bt">
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <div class="team-item wow fadeInUp" data-wow-delay="1.2s">
+                    <div class="team-img">
+                        <img class="img-fluid" src="@hostImage.Url()" alt="">
+                        <div class="team-overlay">
+                            <div class="overlay-social-icon text-center">
+                                <ul class="social-icons">
+                                    <li><a href="#"><i class="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="lni-google" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="lni-pinterest" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-text">
+                        <p>@Model.Value("duty")</p>
+                        <hr>
+                        <h3>@Model.Value("title")</h3>
+                        <hr>
+                        <span>@Model.Value("description")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

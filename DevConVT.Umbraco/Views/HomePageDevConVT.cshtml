@@ -1,0 +1,197 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+    Layout = "MasterDevConVT.cshtml";
+    var hostImage = Model.Value<IPublishedContent>("mediaType");
+
+}
+
+
+<!-- Hero Area Start -->
+
+    <div id="hero-area" style="background-image: url('@hostImage.Url'); background-size: cover;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-sm-12">
+                    <div class="contents text-center">
+                        <div class="icon">
+                            <i class="lni-mic"></i>
+                        </div>
+                        <p class="banner-info">@Model.Value("startingDate") - @Model.Value("location")</p>
+                        <h2 class="head-title">@Model.Value("heading")</h2>
+                        <p class="banner-desc">
+                            @Model.Value("shortDescriptionText")
+                        </p>
+                        <div class="banner-btn">
+                            <a href="/eventregistration" class="btn btn-common">Register Now!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<section id="count">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="count-wrapper text-center">
+                    <div class="time-countdown wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="time-entry days">
+                            <span id="days"></span>
+                            <b>:</b>
+                            Days
+                        </div>
+                        <div class="time-entry hours">
+                            <span id="hours"></span>
+                            <b>:</b>
+                            Hours
+                        </div>
+                        <div class="time-entry minutes">
+                            <span id="minutes"></span>
+                            <b>:</b>
+                            Minutes
+                        </div>
+                        <div class="time-entry seconds">
+                            <span id="seconds"></span>
+                            Seconds
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{ 
+    var aboutImage = Model.Value<IPublishedContent>("imageAbout");
+
+}
+<section id="about" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-xs-12">
+                <div class="img-thumb">
+                    <img class="img-fluid" src="@aboutImage.Url()" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-xs-12">
+                <div class="about-content">
+                    <div>
+                        <div class="about-text">
+                            <h2>@Model.Value("titleAbout")</h2>
+                            <p>
+                                @Model.Value("descriptionAbout")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="ready-to-play">
+    <video id="bgvid" class="stop" loop>
+        <source src="assets/video/event.webm" type="video/mp4">
+    </video>
+    <div id="polina" class="video-text">
+        <div class="tb-t">
+            <div class="tb-c">
+                <div class="polina"><button><i class='lni-play'></i></button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="information-bar">
+    <div class="container">
+        <div class="row inforation-wrapper">
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-map-marker"></i>
+                    </li>
+                    <li><span><b>Location</b> @Model.Value("infoPlace") </span></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-calendar"></i>
+                    </li>
+                    <li><span><b>Date & Time</b> @Model.Value("infoDate")</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-mic"></i>
+                    </li>
+                    @{ 
+                        var speakersCount = Model.Children.Where(wr=>wr.Name == "Speakers").Select(sl=>sl.Children).ToList()[0].Count();                    
+
+                    }
+                    <li><span><b>Speakers</b> @speakersCount</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-user"></i>
+                    </li>
+                    <li><span><b>Seats</b> @Model.Value("infoSeats") People</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+@foreach (var page in Model.Children)
+{
+    if (page.Name == "Contact")
+    {
+        Html.RenderAction("RenderForm", "SendMail");
+    }
+    else if (page.Name == "EventRegistration")
+    {
+        Html.RenderAction("RenderForm", "EventRegistration");
+    }
+    else
+    {
+        Html.RenderPartial("~/Views/Partials/_" + page.Name + ".cshtml", page);
+    }
+}
+
+<script>
+    var date = "@Model.Value("startingDate")";
+
+    var splitDate = date.split(" ");
+
+    var dateOnly = splitDate[0];
+
+    var newdate = dateOnly.split("-").reverse().join("-");
+
+    var countDownDate = new Date(newdate).getTime();
+
+    var x = setInterval(function () {
+
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerHTML = days;
+        document.getElementById("hours").innerHTML = hours;
+        document.getElementById("minutes").innerHTML = minutes;
+        document.getElementById("seconds").innerHTML = seconds;
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("count-wrapper").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+</script>

@@ -1,0 +1,20 @@
+{
+  "id": "d0958eca-7f8d-469a-b354-16da3e1e585a",
+  "name": "Send template email to gmirchev@melontech.com",
+  "form": "c3e2d40d-d835-4240-9bf9-e60f95d71e4c",
+  "active": true,
+  "includeSensitiveData": "True",
+  "workflowTypeId": "17c61629-d984-4e86-b43b-a8407b3efea9",
+  "executesOn": "Submitted",
+  "settings": {
+    "RazorViewFilePath": "Forms/Emails/Example-Template.cshtml",
+    "Attachment": "",
+    "Email": "gmirchev@melontech.com",
+    "CcEmail": "geomirchev@gmail.com",
+    "BccEmail": "",
+    "SenderEmail": "volleyballer93@abv.bg",
+    "ReplyToEmail": "",
+    "Subject": "Umbraco mate"
+  },
+  "sortOrder": 1
+}

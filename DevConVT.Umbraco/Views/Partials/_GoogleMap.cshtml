@@ -1,0 +1,43 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+<section id="google-map-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <object style="border:0; height: 450px; width: 100%;"
+                        data="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=@Model.Value("event")&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+                </object>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact-text">
+    <div class="container">
+        <div class="row contact-wrapper">
+            <div class="col-lg-4 col-md-5 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-home"></i>
+                    </li>
+                    <li><span>@Model.Value("event")</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-3 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-phone"></i>
+                    </li>
+                    <li><span>@Model.Value("phone")</span></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-3 col-xs-12">
+                <ul>
+                    <li>
+                        <i class="lni-envelope"></i>
+                    </li>
+                    <li><span>@Model.Value("email")</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

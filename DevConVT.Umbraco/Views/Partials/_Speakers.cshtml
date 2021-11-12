@@ -1,0 +1,34 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+
+<section id="speakers" class="section-padding text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title-header text-center">
+                    <h2 class="section-title wow fadeInUp" data-wow-delay="0.2s">@Model.Value("heading")</h2>
+                    <p class="wow fadeInDown" data-wow-delay="0.2s">
+                        @Model.Value("description")
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-bt">
+            @foreach (var item in Model.Children)
+            {
+                var speakerImage = item.DescendantOrSelf().Value<IPublishedContent>("image");
+                <div class="col-lg-3 col-md-6 col-xs-12">
+                    <div class="team-item wow fadeInUp" data-wow-delay="1.2s">
+                        <div class="team-img">
+                            <img class="img-fluid" src="@speakerImage.Url()" alt="">
+                        </div>
+                        <div class="info-text">
+                            @*<h3><a href="#">@item.Name</a></h3>*@
+                            <p>@item.DescendantOrSelf().Value("duty")</p>
+                        </div>
+                        <a href="@item.Url" class="btn btn-common">Read More</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
